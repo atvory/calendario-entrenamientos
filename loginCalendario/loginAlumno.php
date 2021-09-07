@@ -17,6 +17,7 @@
     //if (count($results) > 0 && password_verify($_POST['password'], $results['password'])) {
     if ($results !=null){
       $_SESSION['user_id'] = $results['id'];
+      $_SESSION['tutor_id'] = $results['tutor_id'];
       echo(json_encode($results));
       header("Location: /laravel/loginCalendario/muroAlumno.php");
     } else {

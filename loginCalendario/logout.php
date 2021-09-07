@@ -5,5 +5,5 @@
 
   session_destroy();
 
-  header('Location: /loginCalendario/index.php');
+  header('Location: /laravel/loginCalendario/index.php');
 ?>
