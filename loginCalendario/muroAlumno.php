@@ -92,6 +92,49 @@
               var i = Math.random()*(max-min)+min;
               return Math.round(i);
             }
+
+            function genEvent(element,i){
+
+              var elementChild =document.createElement("div");
+                      elementChild.setAttribute("id","div-ejercicios-child");
+                      elementChild.style.marginBottom="30px";
+                      elementChild.style.border="2px solid grey";
+                      elementChild.style.borderRadius="5%";
+
+                      var divTitle = document.createElement("div");
+                      //divTitle.style.margin="50px";
+
+                      var divDesc = document.createElement("div");
+                      var ifrm = document.createElement("iframe");
+                      var br = document.createElement("br");
+
+                      var title = document.createTextNode(events[i]['title']);
+                      var description = document.createTextNode(events[i]['description']);
+
+                      ifrm.setAttribute("src","https://www.youtube.com/embed/dQw4w9WgXcQ");
+                      ifrm.setAttribute("class","embed-responsive-item");
+                      ifrm.setAttribute("id","iframe-video-ejercicio");
+                      ifrm.setAttribute('allowFullScreen', '')
+                      ifrm.style.border= "5px solid black";
+                      ifrm.style.overflow="hidden";
+                      ifrm.style.width="50%";
+                      ifrm.style.height="200px";
+                      ifrm.style.borderRadius="5%";
+
+
+                      divTitle.appendChild(title);
+                      elementChild.appendChild(divTitle);
+                      elementChild.appendChild(br);
+
+                      divDesc.appendChild(description);
+                      elementChild.appendChild(divDesc);
+                      elementChild.appendChild(br);
+
+                      elementChild.appendChild(ifrm);
+
+                      element.appendChild(elementChild);
+            }
+
             function dateSelected(){
                 var inputDate = document.getElementById("input-date");
                 var date = inputDate.value;
@@ -99,13 +142,6 @@
                 if(divEjerciciosChild!=null){
                     divEjerciciosChild.remove();
                 }
-                //var eventDate = events[1]['start'];
-
-                //var eventDateYmd = eventDate.substring(0,10);
-
-                //console.log(date);
-                //console.log(eventDate);
-                //console.log(eventDateYmd);
 
                 var element = document.getElementById("div-ejercicios");
                 element.style.border="2px solid grey";
@@ -124,124 +160,26 @@
 
                   console.log(date==eventDateYmd);
                   if(date==eventDateYmd){
-                      console.log(events[i]);
-
-                      var elementChild =document.createElement("div");
-                      elementChild.setAttribute("id","div-ejercicios-child");
-                      elementChild.style.marginBottom="30px";
-                      elementChild.style.border="2px solid grey";
-                      elementChild.style.borderRadius="5%";
-
-                      var divTitle = document.createElement("div");
-                      //divTitle.style.margin="50px";
-
-                      var divDesc = document.createElement("div");
-                      var ifrm = document.createElement("iframe");
-                      var br = document.createElement("br");
-
-
-                      var title = document.createTextNode(events[i]['title']);
-                      var description = document.createTextNode(events[i]['description']);
-
-
-                      //var url = document.createTextNode(events[i]['url']);
-                      ifrm.setAttribute("src","https://www.youtube.com/embed/dQw4w9WgXcQ");
-                      ifrm.setAttribute("class","embed-responsive-item");
-                      ifrm.setAttribute("id","iframe-video-ejercicio");
-                      ifrm.setAttribute('allowFullScreen', '')
-                      ifrm.style.border= "5px solid black";
-                      ifrm.style.overflow="hidden";
-                      ifrm.style.width="50%";
-                      ifrm.style.height="200px";
-                      ifrm.style.borderRadius="5%";
-
-                      divTitle.appendChild(title);
-                      elementChild.appendChild(divTitle);
-                      elementChild.appendChild(br);
-
-                      divDesc.appendChild(description);
-                      elementChild.appendChild(divDesc);
-                      elementChild.appendChild(br);
-
-                      elementChild.appendChild(ifrm);
-
-                      element.appendChild(elementChild);
+                      genEvent(element,i);
                       
                   }
                 }
+
+                //en caso de día sin registros
                 if( element.innerHTML ===""){
-                  var title = document.createTextNode("dia sin datos en db: ");
-
+                  var title = document.createTextNode("día vacío, eventos random:");
+                  
                   element.appendChild(title);
-
-
-
 
                   var ids = null;
                   const min = 0;
                   const max = fastEvents.length-1;
 
-                  /* var prueba1 = getRandomRound(min,max);
-                  var prueba2 = getRandomRound(min,max);
-                  var prueba3 = getRandomRound(min,max);
-                  var prueba4 = getRandomRound(min,max);
-                  var prueba5 = getRandomRound(min,max); */
-
-                  /* console.log(min);
-                  console.log (max);
-
-                  console.log (prueba1);
-                  console.log (prueba2);
-                  console.log (prueba3);
-                  console.log (prueba4);
-                  console.log (prueba5); */
-                  
-
+                  //genera 4 eventos random
                   for(var i = 0; i<4;i++){
                       var random = getRandomRound(min,max);
-                      console.log(random);
-                      ids = document.createTextNode("id"+fastEvents[random]['id']+" ");
 
-
-
-                      var elementChild =document.createElement("div");
-                      elementChild.setAttribute("id","div-ejercicios-child");
-                      elementChild.style.marginBottom="30px";
-                      elementChild.style.border="2px solid grey";
-                      elementChild.style.borderRadius="5%";
-
-                      var divTitle = document.createElement("div");
-                      //divTitle.style.margin="50px";
-
-                      var divDesc = document.createElement("div");
-                      var ifrm = document.createElement("iframe");
-                      var br = document.createElement("br");
-
-                      var title = document.createTextNode(events[random]['title']);
-                      var description = document.createTextNode(events[random]['description']);
-
-                      ifrm.setAttribute("src","https://www.youtube.com/embed/dQw4w9WgXcQ");
-                      ifrm.setAttribute("class","embed-responsive-item");
-                      ifrm.setAttribute("id","iframe-video-ejercicio");
-                      ifrm.setAttribute('allowFullScreen', '')
-                      ifrm.style.border= "5px solid black";
-                      ifrm.style.overflow="hidden";
-                      ifrm.style.width="50%";
-                      ifrm.style.height="200px";
-                      ifrm.style.borderRadius="5%";
-
-
-                      divTitle.appendChild(title);
-                      elementChild.appendChild(divTitle);
-                      elementChild.appendChild(br);
-
-                      divDesc.appendChild(description);
-                      elementChild.appendChild(divDesc);
-                      elementChild.appendChild(br);
-
-                      elementChild.appendChild(ifrm);
-
-                      element.appendChild(elementChild);
+                      genEvent(element,random);
                   }
 
                 }
