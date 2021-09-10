@@ -51,6 +51,13 @@
     } 
     
   }
+
+  //recoge el día para hacer un echo sobre el valor seleccionado en el input date
+  $month = date('m');
+  $day = date('d');
+  $year = date('Y');
+
+  $today = $year . '-' . $month . '-' . $day;
 ?>
     
 
@@ -61,6 +68,21 @@
     <title>login calendario</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+      
+      @media only screen and (max-device-width: 768px) {
+        .col-ejercicios {
+          column-count:1;
+        }
+      }
+      
+      @media only screen and (min-device-width: 768px){
+        .col-ejercicios{
+          column-count:2
+        }
+      }
+    </style>
+
   </head>
   <body>
     <?php require 'partials/header.php' ?>
@@ -73,15 +95,16 @@
     <script type="text/javascript">
         var events = <?php echo json_encode($events); ?>;
         var fastEvents = <?php echo json_encode($fastEvents); ?>;
-        //console.log(events);
-        //console.log(fastEvents);
+        console.log(events);
+        console.log(fastEvents);
 
     </script>
 
      
     
-    <input type="date" id="input-date" onchange="dateSelected()">
-    <div id="div-ejercicios" style="margin:50px;column-count:2">
+    <input type="date" id="input-date" value="<?php echo $today; ?>" onchange="dateSelected()">
+    <div id="div-alert"></div>
+    <div id="div-ejercicios" class="col-ejercicios">
         <script>
             function posSelected(){
                 var e = document.getElementById("select-dia");
@@ -96,57 +119,57 @@
             function genEvent(element,i){
 
               var elementChild =document.createElement("div");
-                      elementChild.setAttribute("id","div-ejercicios-child");
-                      elementChild.style.marginBottom="30px";
-                      elementChild.style.border="2px solid grey";
-                      elementChild.style.borderRadius="5%";
+              elementChild.setAttribute("id","div-ejercicios-child");
+              /* elementChild.style.marginBottom="30px";
+              elementChild.style.border="2px solid grey";
+              elementChild.style.borderRadius="5%"; */
 
-                      var divTitle = document.createElement("div");
-                      //divTitle.style.margin="50px";
+              var divTitle = document.createElement("div");
+              //divTitle.style.margin="50px";
 
-                      var divDesc = document.createElement("div");
-                      var ifrm = document.createElement("iframe");
-                      var br = document.createElement("br");
+              var divDesc = document.createElement("div");
+              var ifrm = document.createElement("iframe");
+              var br = document.createElement("br");
 
-                      var title = document.createTextNode(events[i]['title']);
-                      var description = document.createTextNode(events[i]['description']);
-
-                      ifrm.setAttribute("src","https://www.youtube.com/embed/dQw4w9WgXcQ");
-                      ifrm.setAttribute("class","embed-responsive-item");
-                      ifrm.setAttribute("id","iframe-video-ejercicio");
-                      ifrm.setAttribute('allowFullScreen', '')
-                      ifrm.style.border= "5px solid black";
-                      ifrm.style.overflow="hidden";
-                      ifrm.style.width="50%";
-                      ifrm.style.height="200px";
-                      ifrm.style.borderRadius="5%";
+              var title = document.createTextNode(events[i]['title']);
+              var description = document.createTextNode(events[i]['description']);
+              console.log(events[i]['video']);
+              ifrm.setAttribute("src","https://www.youtube.com/embed/dQw4w9WgXcQ");
+              ifrm.setAttribute("class","embed-responsive-item");
+              ifrm.setAttribute("id","iframe-video-ejercicio");
+              ifrm.setAttribute('allowFullScreen', '')
 
 
-                      divTitle.appendChild(title);
-                      elementChild.appendChild(divTitle);
-                      elementChild.appendChild(br);
+              divTitle.appendChild(title);
+              elementChild.appendChild(divTitle);
+              elementChild.appendChild(br);
 
-                      divDesc.appendChild(description);
-                      elementChild.appendChild(divDesc);
-                      elementChild.appendChild(br);
+              divDesc.appendChild(description);
+              elementChild.appendChild(divDesc);
+              elementChild.appendChild(br);
 
-                      elementChild.appendChild(ifrm);
+              elementChild.appendChild(ifrm);
 
-                      element.appendChild(elementChild);
+              element.appendChild(elementChild);
             }
 
             function dateSelected(){
                 var inputDate = document.getElementById("input-date");
                 var date = inputDate.value;
+                var spanAlert = document.getElementById("span-alert");
                 var divEjerciciosChild = document.getElementById("div-ejercicios-parent");
+                
                 if(divEjerciciosChild!=null){
-                    divEjerciciosChild.remove();
+                  divEjerciciosChild.remove();
+                }
+                if(spanAlert!=null){
+                  spanAlert.remove();
                 }
 
                 var element = document.getElementById("div-ejercicios");
-                element.style.border="2px solid grey";
+                /* element.style.border="2px solid grey";
                 element.style.padding="10px";
-                element.style.borderRadius="5%";
+                element.style.borderRadius="5%"; */
 
                 //limpia la caja de los anteriores eventos.
                 while(element.firstChild){
@@ -167,9 +190,12 @@
 
                 //en caso de día sin registros
                 if( element.innerHTML ===""){
-                  var title = document.createTextNode("día vacío, eventos random:");
-                  
-                  element.appendChild(title);
+                  var elementAlert = document.getElementById("div-alert");
+                  var title = document.createElement("span");
+                  title.textContent = "Día vacío, eventos random generados:";
+                  //title.setAttribute ="id, span-alert";
+                  title.setAttribute("id","span-alert");
+                  elementAlert.appendChild(title);
 
                   var ids = null;
                   const min = 0;
@@ -186,6 +212,9 @@
 
 
             }
+        </script>
+        <script>
+            dateSelected();
         </script>
 
     </div>
@@ -223,4 +252,12 @@
       <a href="loginAlumno.php">Alumno</a>
     <?php endif; ?>
   </body>
+  <style>
+      @media only screen and (max-width: 768px) {
+        .col-ejercicios {
+          
+          column-count:1;
+        }
+      }
+    </style>
 </html>
