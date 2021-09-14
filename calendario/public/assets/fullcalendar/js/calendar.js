@@ -73,6 +73,9 @@
             color:Event.color,
             description:Event.description
           };
+          console.log(Event);
+          console.log(newEvent);
+/* 
           if(seleccionado!=0){
             
             sendEvent(routeEvents('routeEventStore'), newEvent);
@@ -80,7 +83,8 @@
           else{
             alert("No has seleccionado alumno, el evento no se guardará.")
             location.reload();
-          }
+          } */
+
           //sendEvent(routeEvents('routeEventStore'), Event);
           //let Event = JSON.parse(element.draggedEl.dataset.event);
           //console.log(Event); // para comprobar el JSON
@@ -143,10 +147,10 @@
           $("#modalCalendar #titleModal").text('Modificar actividad');
           $("#modalCalendar button.deleteEvent").css('display','flex');
 
-         console.log(element); //<- para mostrar lo que le llega a la consola al hacer click
+         //console.log("ELEMeNTO"+element.event); //<- para mostrar lo que le llega a la consola al hacer click
           let title = element.event.title;
           $("#modalCalendar input[name='title']").val(title);
-
+          
           let id = element.event.id;
           $("#modalCalendar input[name='id']").val(id);
 
@@ -168,6 +172,8 @@
 
           let description = element.event.extendedProps.description;
           $("#modalCalendar textarea[name='description']").val(description);
+
+          console.log("ELEMeNTO "+element.event.tipo); // <--------------- falta en el evento 
 
         },
         

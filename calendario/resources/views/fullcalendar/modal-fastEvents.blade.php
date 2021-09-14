@@ -43,10 +43,30 @@
               </div> 
               
               <div class="form-group row">
-                  <label for="description" class="col-sm-4 col-form-label">Descripción</label>
-                  <div class="col-sm-8">
-                      <textarea name="description" id="description" cols="40" rows="4"></textarea>
-                  </div>
+                <label for="description" class="col-sm-4 col-form-label">Descripción</label>
+                <div class="col-sm-8">
+                    <textarea name="description" id="description" cols="40" rows="4"></textarea>
+                </div>
+              </div>
+              <div>
+                <label for="select-tipo">Tipo</label>
+                <select name="select-tipo" id="select-tipo">
+                  <option value="1">Aeróbico</option>
+                  <option value="2">Fuerza (Resistencia)</option>
+                  <option value="3">Estiramientos</option>
+                </select>
+              </div>
+              <div>
+                <label for="select-nivel">Nivel</label>
+                <select name="select-nivel" id="select-nivel">
+                  <option value="1">alto</option>
+                  <option value="2">medio</option>
+                  <option value="3">bajo</option>
+                </select>
+              </div>
+              <div>
+                <label for="video-link">Link video (embeded) </label>
+                <input type="text" name="video-link" id="video-link">
               </div>
           </form>
         </div>

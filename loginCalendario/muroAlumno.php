@@ -95,8 +95,8 @@
     <script type="text/javascript">
         var events = <?php echo json_encode($events); ?>;
         var fastEvents = <?php echo json_encode($fastEvents); ?>;
-        console.log(events);
-        console.log(fastEvents);
+        //console.log(events);
+        //console.log(fastEvents);
 
     </script>
 
@@ -109,7 +109,7 @@
             function posSelected(){
                 var e = document.getElementById("select-dia");
                 var strUser = e.value;
-                console.log(strUser);
+                //console.log(strUser);
             }
             function getRandomRound(min,max){
               var i = Math.random()*(max-min)+min;
@@ -133,8 +133,11 @@
 
               var title = document.createTextNode(events[i]['title']);
               var description = document.createTextNode(events[i]['description']);
-              console.log(events[i]['video']);
+
+              console.log(events[i]);
+              console.log(events[i]['video']); //////////////////////////////////////////// modificar el video a setear
               ifrm.setAttribute("src","https://www.youtube.com/embed/dQw4w9WgXcQ");
+              //ifrm.setAttribute("src",events[i]['video']);
               ifrm.setAttribute("class","embed-responsive-item");
               ifrm.setAttribute("id","iframe-video-ejercicio");
               ifrm.setAttribute('allowFullScreen', '')
@@ -181,7 +184,7 @@
                   var eventDate = events[i]['start'];
                   var eventDateYmd = eventDate.substring(0,10);
 
-                  console.log(date==eventDateYmd);
+                  //console.log(date==eventDateYmd);
                   if(date==eventDateYmd){
                       genEvent(element,i);
                       

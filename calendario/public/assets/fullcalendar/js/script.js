@@ -110,7 +110,7 @@ $(function(){
         resetForm("#formFastEvent");
 
         let Event = JSON.parse($(this).attr('data-event'));
-        console.log(Event);
+        console.log("Eventooooooooooooo"+Event);
         $('#modalFastEvent').modal('show');
         $("#modalFastEvent #titleModal").text('Modificar actividad');
         $("#modalFastEvent button.deleteFastEvent").css("display","flex");
@@ -122,6 +122,9 @@ $(function(){
         $("#modalFastEvent input[name='end']").val(Event.end);
         $("#modalFastEvent input[name='color']").val(Event.color);
         $("#modalFastEvent textarea[name='description']").val(Event.description);
+        $("#modalFastEvent select[name='select-tipo']").val(Event.tipo);
+        $("#modalFastEvent select[name='select-nivel']").val(Event.nivel);
+        $("#modalFastEvent input[name='video-link']").val(Event.video);
 
     });
     
@@ -156,12 +159,21 @@ $(function(){
         let title = $("#modalFastEvent input[name='title']").val();
         let description = $("#modalFastEvent textarea[name='description']").val();
         let tutor_id = $("#modalFastEvent input[name='tutor_id']").val();
+        let tipo = $("#modalFastEvent select[name='select-tipo']").val();
+        let nivel = $("#modalFastEvent select[name='select-nivel']").val();
+        let link = $("#modalFastEvent input[name='video-link']").val();
 
         let FastEvent = {
             tutor_id:tutor_id,
             act_title: title,
             act_description: description,
+            act_tipo:tipo,
+            act_nivel:nivel,
+            video:link  
         };
+
+        console.log(FastEvent);
+
 
         let route;
 
@@ -172,9 +184,9 @@ $(function(){
             FastEvent.id = id;
             FastEvent._method = 'PUT';
         }
-        //console.log(FastEvent);
+        
 
-        sendEvent(route,FastEvent);
+        sendEvent(route,FastEvent); 
     });
 
 

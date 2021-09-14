@@ -98,7 +98,7 @@
                     border:1px solid{{$fastEvent->color}}; 
                     background-color:{{$fastEvent->color}}"
                   class='fc-event' 
-                  data-event='{"id":"{{$fastEvent->id}}","tutor_id":"{{$fastEvent->tutor_id}}","title":"{{$fastEvent->act_title}}","color":"{{$fastEvent->color}}","start":"{{$fastEvent->start}}","end":"{{$fastEvent->end}}","description":"{{$fastEvent->act_description}}"}'>{{$fastEvent->act_title}}</div>
+                  data-event='{"id":"{{$fastEvent->id}}","tutor_id":"{{$fastEvent->tutor_id}}","title":"{{$fastEvent->act_title}}","color":"{{$fastEvent->color}}","start":"{{$fastEvent->start}}","end":"{{$fastEvent->end}}","description":"{{$fastEvent->act_description}}","tipo":"{{$fastEvent->act_tipo}}","nivel":"{{$fastEvent->act_nivel}}","video":"{{$fastEvent->video}}"}'>{{$fastEvent->act_title}}</div>
         @endforeach
       @endif()
     </div>
@@ -109,10 +109,6 @@
    
   </div>
 
-  <div>
-    
-
-  </div>
 
 
   <div 
