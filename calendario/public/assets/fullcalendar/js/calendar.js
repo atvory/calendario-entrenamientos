@@ -71,11 +71,15 @@
             start: start,
             end: end,
             color:Event.color,
-            description:Event.description
+            description:Event.description,
+            tipo:Event.tipo,
+            video:Event.video
           };
-          console.log(Event);
-          console.log(newEvent);
-/* 
+          console.log("Evento soltado "+Event.tipo);
+          console.log("newEvent creado "+newEvent.tipo);
+          console.log("Evento soltado "+Event.video);
+          console.log("newEvent creado "+newEvent.video);
+ 
           if(seleccionado!=0){
             
             sendEvent(routeEvents('routeEventStore'), newEvent);
@@ -83,7 +87,7 @@
           else{
             alert("No has seleccionado alumno, el evento no se guardará.")
             location.reload();
-          } */
+          }
 
           //sendEvent(routeEvents('routeEventStore'), Event);
           //let Event = JSON.parse(element.draggedEl.dataset.event);
@@ -147,7 +151,6 @@
           $("#modalCalendar #titleModal").text('Modificar actividad');
           $("#modalCalendar button.deleteEvent").css('display','flex');
 
-         //console.log("ELEMeNTO"+element.event); //<- para mostrar lo que le llega a la consola al hacer click
           let title = element.event.title;
           $("#modalCalendar input[name='title']").val(title);
           
@@ -169,11 +172,16 @@
           /* let color = element.event.backgroundColor;
           $("#modalCalendar input[name='color']").val(color); */
 
+          let video = element.event.extendedProps.video;
+          $("#modalCalendar input[name='video-link']").val(video);
+
+          let tipo = element.event.extendedProps.tipo;
+          $("#modalCalendar select[name='select-tipo']").val(tipo);
 
           let description = element.event.extendedProps.description;
           $("#modalCalendar textarea[name='description']").val(description);
 
-          console.log("ELEMeNTO "+element.event.tipo); // <--------------- falta en el evento 
+          console.log("Clic en elemento de calendario calendar.js "+ element.event.extendedProps.tipo); // <--------------- falta en el evento 
 
         },
         
@@ -325,11 +333,23 @@
               start: start,
               end: end,
               color:Event.color,
-              description:Event.description
+              description:Event.description,
+              tipo:Event.tipo,
+              video:Event.video
             };
-    
-    
-            sendEvent(routeEvents('routeEventStore'), newEvent);
+            console.log("Evento soltado "+Event.tipo);
+            console.log("newEvent creado "+newEvent.tipo);
+            console.log("Evento soltado "+Event.video);
+            console.log("newEvent creado "+newEvent.video);
+   
+            if(seleccionado!=0){
+              
+              sendEvent(routeEvents('routeEventStore'), newEvent);
+            }
+            else{
+              alert("No has seleccionado alumno, el evento no se guardará.")
+              location.reload();
+            }
             //sendEvent(routeEvents('routeEventStore'), Event);
             //let Event = JSON.parse(element.draggedEl.dataset.event);
             //console.log(Event); // para comprobar el JSON
@@ -407,6 +427,14 @@
     
             let description = element.event.extendedProps.description;
             $("#modalCalendar textarea[name='description']").val(description);
+
+            let tipo = element.event.extendedProps.tipo; 
+            $("#modalCalendar select[name='select-tipo']").val(tipo);
+
+            let video = element.event.extendedProps.video;
+            $("#modalCalendar input[name='video-link']").val(video);
+
+            console.log("Clic en elemento de calendario calendar.js "+element);
 
           },
           

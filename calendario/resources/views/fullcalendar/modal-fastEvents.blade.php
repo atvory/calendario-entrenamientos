@@ -57,16 +57,8 @@
                 </select>
               </div>
               <div>
-                <label for="select-nivel">Nivel</label>
-                <select name="select-nivel" id="select-nivel">
-                  <option value="1">alto</option>
-                  <option value="2">medio</option>
-                  <option value="3">bajo</option>
-                </select>
-              </div>
-              <div>
                 <label for="video-link">Link video (embeded) </label>
-                <input type="text" name="video-link" id="video-link">
+                <input type="text" name="video-link" id="video-link" style="width:350px">
               </div>
           </form>
         </div>

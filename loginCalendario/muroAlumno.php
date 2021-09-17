@@ -29,9 +29,17 @@
       $resultSetFastEvents[]=$row;
     }
 
+    $recordsFrases = $conn->prepare('SELECT * FROM frases_motivadoras');
+    $recordsFrases->execute();
+    $resultSetFrases = array();
+    while($row = $recordsFrases->fetch(PDO::FETCH_ASSOC)){
+      $resultSetFrases[]=$row;
+    }
+
     $user = null;
     $events= null;
     $fastEvents = null;
+    $frasesMotivadoras = null;
 
     //echo(json_encode($results));
     if (count($userResult) > 0) {
@@ -48,6 +56,12 @@
         //echo(json_encode($fastEvents));
         
       }
+
+      if(count($resultSetFrases)>0){
+        $frasesMotivadoras = $resultSetFrases;
+        //echo(json_encode($frasesMotivadoras));
+      }
+      
     } 
     
   }
@@ -95,6 +109,7 @@
     <script type="text/javascript">
         var events = <?php echo json_encode($events); ?>;
         var fastEvents = <?php echo json_encode($fastEvents); ?>;
+        var frasesMotivadoras = <?php echo json_encode($frasesMotivadoras); ?>;
         //console.log(events);
         //console.log(fastEvents);
 
@@ -116,33 +131,175 @@
               return Math.round(i);
             }
 
-            function genEvent(element,i){
+            function getRandomRoundUnique(max){
+              var lista = [];
+
+
+
+              /* while(lista<max){
+                var random = getRandomRound(0,max);
+                //console.log(lista);
+                //console.log(lista.includes(random));
+
+                if(lista.includes(random)!=true){
+                  lista.push(random);
+                  console.log("añade "+lista);
+                }else{
+                  console.log("falla");
+                }
+              } */
+
+              for(var i = 0; i<=max+(max*10);i++){
+                var random = getRandomRound(0,max);
+                //console.log(lista);
+                //console.log(lista.includes(random));
+
+                if(lista.includes(random)!=true){
+                  lista.push(random);
+                  //console.log("añade "+lista);
+                }else{
+                  //console.log("falla");
+                }
+              }
+              //console.log(lista);
+              return lista;
+            }
+
+            function changeBckgrnd(i){
+              var cb = document.getElementById("cb-completed"+i);
+              var div = document.getElementById("div-ejercicios-child"+i);
+              var divTitle = document.getElementById("div-titulo-actividad"+i);
+              var divDesc = document.getElementById("div-desc-actividad"+i);
+              var divFrase = document.getElementById("div-frase-motivadora"+i);
+              var divCompletado = document.getElementById("div-completed"+i);
+              var divButton = document.getElementById("div-button-fb"+i);
+
+
+              if (cb.checked==true){
+                //div.setAttribute("")
+                div.style.backgroundColor="green";
+                divTitle.style.color="white";
+                divDesc.style.color="white";
+                divFrase.style.color="transparent";
+                divFrase.style.height="0px";
+                
+                divCompletado.style.color="white";
+                divButton.style.backgroundColor="white";
+                divButton.style.borderColor="white";
+                divButton.style.color="green";
+
+              }else{
+                div.style.backgroundColor="white";
+                divTitle.style.color="black";
+                divDesc.style.color="black";
+                divFrase.style.color="rgb(255, 0, 242)";
+                divFrase.style.height="19px";
+                divCompletado.style.color="black";
+                divButton.style.backgroundColor="green";
+                divButton.style.borderColor="green";
+                divButton.style.color="white";
+              }
+
+            }
+
+
+            function genEvent(element,i,k){
 
               var elementChild =document.createElement("div");
-              elementChild.setAttribute("id","div-ejercicios-child");
-              /* elementChild.style.marginBottom="30px";
-              elementChild.style.border="2px solid grey";
-              elementChild.style.borderRadius="5%"; */
+              elementChild.setAttribute("id","div-ejercicios-child"+i);
+              elementChild.setAttribute("class","div-ejercicios-child");
 
+              //averiguar por qué no funciona en hoja de estilo por class ////// <<<<---- estilos
+              elementChild.style.boxShadow ="0px 0px 15px rgb(177, 177, 177)";////////////////
+              elementChild.style.margin ="25px";/////////////////////////////////////////////
+              elementChild.style.border ="2px solid rgb(202,202,202)";/////////////////////////
+              elementChild.style.padding ="10px";///////////////////////////////////////////
+              elementChild.style.borderRadius ="2%";////////////////////////////////////////
+
+              var elementTable = document.createElement("table");
+              var elementTd1 = document.createElement("td");
+              var elementTd2 = document.createElement("td");
+              elementTd2.style.position="relative";
+              elementTd2.style.top="-120px";///////////////////////////////////////////////////
+              elementTable.style.width="100%";////////////////////////////////////////////////
+              elementTable.style.margin="20px";///////////////////////////////////////////
+              
+              //generacion de divs ids y clases
               var divTitle = document.createElement("div");
-              //divTitle.style.margin="50px";
+              divTitle.setAttribute("id","div-titulo-actividad"+i);
+              divTitle.setAttribute("class","div-titulo-actividad");
+              divTitle.style.fontWeight="bold";///////////////////////////////////////////////
+
 
               var divDesc = document.createElement("div");
+              divDesc.setAttribute("id","div-desc-actividad"+i);
+              divDesc.setAttribute("class","div-desc-actividad");
+
+              var divFrase = document.createElement("div");
+              divFrase.setAttribute("id","div-frase-motivadora"+i);
+              divFrase.setAttribute("class","div-frase-motivadora");
+
+              divFrase.style.color="rgb(255,0,242)"; ///////////////////////////////////////////
+
               var ifrm = document.createElement("iframe");
+              ifrm.setAttribute("class","embed-responsive-item");
+              ifrm.setAttribute("id","iframe-video-ejercicio"+i);
+              ifrm.setAttribute("class","iframe-video-ejercicio");
+              ifrm.setAttribute('allowFullScreen', '');
+
+              ifrm.style.border="5px solid rgb(185, 185, 185)"; ///////////////////////////////
+              ifrm.style.overflow="hidden";////////////////////////////////////////////////////
+              ifrm.style.width="200px";////////////////////////////////////////////////////////
+              ifrm.style.borderRadius="5%";///////////////////////////////////////////////////
+
               var br = document.createElement("br");
 
-              var title = document.createTextNode(events[i]['title']);
-              var description = document.createTextNode(events[i]['description']);
+              var divCompleted = document.createElement("div");
+              divCompleted.setAttribute("id","div-completed"+i);
+              divCompleted.setAttribute("class","div-completed");
 
-              console.log(events[i]);
-              console.log(events[i]['video']); //////////////////////////////////////////// modificar el video a setear
-              ifrm.setAttribute("src","https://www.youtube.com/embed/dQw4w9WgXcQ");
-              //ifrm.setAttribute("src",events[i]['video']);
-              ifrm.setAttribute("class","embed-responsive-item");
-              ifrm.setAttribute("id","iframe-video-ejercicio");
-              ifrm.setAttribute('allowFullScreen', '')
+              var divFeedback = document.createElement("div");
+              divFeedback.setAttribute("id","div-feedback"+i);
+              divFeedback.setAttribute("class","div-feedback");
+              divFeedback.style.borderRadius="8px";/////////////////////////////////
 
+              //contenidos de las divs
+              var frase = document.createTextNode(frasesMotivadoras[k]['frase']);
+              var title = document.createTextNode(fastEvents[i]['act_title']);
+              var description = document.createTextNode(fastEvents[i]['act_description']);
 
+              var video = fastEvents[i]['video'];
+              ifrm.setAttribute("src",video);
+
+              var completedCheckB = document.createElement("input");
+              completedCheckB.type="checkbox";
+              completedCheckB.setAttribute("id","cb-completed"+i);
+              completedCheckB.setAttribute("onclick","changeBckgrnd("+i+")");
+              var labelCb= document.createElement("label");
+              labelCb.for="checkbox";
+              labelCb.innerHTML = "¿Completado?";
+
+              var feedbackInput = document.createElement("textarea");
+              feedbackInput.setAttribute("id","textarea-feedback"+i);
+              feedbackInput.setAttribute("class","textarea-feedback");
+              feedbackInput.setAttribute("placeholder","¿Qué tal ha salido?");
+              feedbackInput.style.borderRadius="8px";//////////////////////////////////////////
+
+              var feedbackButton = document.createElement("button");
+              feedbackButton.setAttribute("id","div-button-fb"+i);
+              feedbackButton.setAttribute("class","div-button-fb");
+              feedbackButton.name="completado";
+              feedbackButton.innerHTML = "enviar";
+
+              feedbackButton.style.backgroundColor="green";////////////////////////////////////
+              feedbackButton.style.borderColor="green";////////////////////////////////////////
+              feedbackButton.style.color="white";//////////////////////////////////////////////
+              feedbackButton.style.fontFamily="Verdana, Geneva, Tahoma, sans-serif";/////////////
+              feedbackButton.style.marginLeft="10px";///////////////////////////////////////////
+              feedbackButton.style.borderRadius="8px";////////////////////////////////////////
+              
+
+              //asociacion de contenidos y cajas
               divTitle.appendChild(title);
               elementChild.appendChild(divTitle);
               elementChild.appendChild(br);
@@ -151,9 +308,30 @@
               elementChild.appendChild(divDesc);
               elementChild.appendChild(br);
 
-              elementChild.appendChild(ifrm);
+              
+              divFrase.appendChild(frase);
+              elementChild.appendChild(divFrase);
+              elementChild.appendChild(br);
 
+              elementTd1.appendChild(ifrm);
+              //elementTd1.appendChild(br);
+
+              divCompleted.appendChild(labelCb);
+              divCompleted.appendChild(completedCheckB);
+              elementTd2.appendChild(divCompleted);
+              elementTd2.appendChild(br);
+
+              divFeedback.appendChild(feedbackInput);
+              divFeedback.appendChild(feedbackButton);
+              elementTd2.appendChild(divFeedback);
+              
+
+              elementTable.appendChild(elementTd1);
+              elementTable.appendChild(elementTd2);
+              elementChild.appendChild(elementTable);
+              
               element.appendChild(elementChild);
+              
             }
 
             function dateSelected(){
@@ -200,15 +378,24 @@
                   title.setAttribute("id","span-alert");
                   elementAlert.appendChild(title);
 
-                  var ids = null;
-                  const min = 0;
+                  //array con los id de los fastEvents sin repetir.
+                  var idsUniques = null;
                   const max = fastEvents.length-1;
+                  idsUniques = getRandomRoundUnique(max);
+                  //console.log("ids eventos "+idsUniques);
+                  //array con los id de las frases sin repetir.
+                  var idsFrases = null;
+                  const maxFrases = frasesMotivadoras.lenght-1;
+                  idsFrases = getRandomRoundUnique(max);
+                  //console.log("ids frases "+idsFrases);
+                  
 
-                  //genera 4 eventos random
+                  //genera 4 eventos random sustituir por el número de eventos random a generar si vacío
                   for(var i = 0; i<4;i++){
-                      var random = getRandomRound(min,max);
-
-                      genEvent(element,random);
+                      var random = idsUniques[i];
+                      var random2 = idsFrases[i];
+                      //console.log("pos array"+idsUniques[i]);
+                      genEvent(element,random,random2);
                   }
 
                 }
@@ -217,6 +404,7 @@
             }
         </script>
         <script>
+            //getRandomRoundUnique(5);
             dateSelected();
         </script>
 

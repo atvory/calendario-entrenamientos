@@ -11,8 +11,7 @@ class Event extends Model
 {
     use SoftDeletes;
 
-    //protected $fillable = ['title','start','end','color','description']; //constructor sin ids
-    protected $fillable = ['tutor_id','alumno_id','title','start','end','color','description']; // <<--- para cambiar ids al crear eventos
+    protected $fillable = ['tutor_id','alumno_id','title','start','end','color','description','tipo','video']; // <<--- para cambiar ids al crear eventos
 
     //funciones para poder modificar los eventos
 public function getStartAttribute($value)

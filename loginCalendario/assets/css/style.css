@@ -66,7 +66,7 @@ header a {
   padding-left: 45px;
 }
 
-#div-ejercicios-child {
+.div-ejercicios-child{
   box-shadow:0px 0px 5px rgb(177, 177, 177);
   margin:5px;
   margin-bottom: 25px;
@@ -75,12 +75,30 @@ header a {
   padding-bottom: 15px;
 
 }
+
+.div-frase-motivadora span{
+  color: rgb(255, 0, 242) !important;
+}
+#div-frase-motivadora{
+  color: rgb(255, 0, 242);
+}
 #iframe-video-ejercicio {
   border:5px solid rgb(185, 185, 185);
   overflow:hidden;
-  width: 90%;
-  height: 200px;
+  width:200px;
   border-radius: 5%;
 }
+#textarea-feedback{
+  border-radius: 8px;
+}
 
-
+#div-button-fb{
+  border-color:rgb(121, 173, 69) ;
+  background-color: rgb(121, 173, 69);
+  color: white;
+  border-radius: 8px;
+}
+#div-button-fb::after{
+  content: 'enviar';
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

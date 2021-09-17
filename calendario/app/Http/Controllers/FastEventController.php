@@ -22,4 +22,17 @@ class FastEventController extends Controller
         return response()->json(true);
     }
 
+    public function update(FastEventRequest $FastEventRequest){
+
+        // para comprobar los datos que se envian en la consola
+        var_dump($FastEventRequest->all());
+        $event = Event::where('id',$FastEventRequest->id)->first();
+
+        $event->fill($FastEventRequest->all());
+
+        $event->save();
+
+        return response()->json(true);
+    }
+
 }

@@ -22,30 +22,13 @@
               <option value="3">Estiramientos</option>
             </select>
           </div>
-          <div>
-            <label for="select-nivel">Nivel</label>
-            <select name="select-nivel" id="select-nivel">
-              <option value="1">alto</option>
-              <option value="2">medio</option>
-              <option value="3">bajo</option>
-            </select>
-          </div>
-          <div>
+          
+          {{-- <div>
             <label for="select-ejercicio">Ejercicio</label>
             <select name="select-ejercicio" id="select-ejercicio">
-              @if($fastEvents)
-                @foreach ($fastEvents as $fastEvent)
-                    <div
-                      style="
-                        padding: 4px;
-                        border:1px solid{{$fastEvent->color}}; 
-                        background-color:{{$fastEvent->color}}"
-                      class='fc-event' 
-                      data-event='{"id":"{{$fastEvent->id}}","tutor_id":"{{$fastEvent->tutor_id}}","title":"{{$fastEvent->act_title}}","color":"{{$fastEvent->color}}","start":"{{$fastEvent->start}}","end":"{{$fastEvent->end}}","description":"{{$fastEvent->act_description}}"}'>{{$fastEvent->act_title}}</div>
-                @endforeach
-              @endif()
+              <option value="1" selected>selecciona un tipo</option>
             </select>
-          </div>
+          </div> --}}
           <div class="form-group row">
               <label for="title" class="col-sm-4 col-form-label">Actividad</label>
               <div class="col-sm-8">
@@ -78,7 +61,7 @@
               </div>
           </div>  --}}
           <div class="form-group row" style="margin-bottom: 50px"> <!-- falta capturar el index y pasarlo a la BD -->
-            <label for="color" class="col-sm-4 col-form-label" style="margin-right: 15px">Color</label>
+            <label for="color" class="col-sm-4 col-form-label" style="margin-right: 15px">Estado</label>
             <div class="radio" class="col-sm-4 col-form-label" style="margin-top: 10px">
               <input type="radio" name="color" id="rbverde" value="#3cc926">
               <label for="hombre" id="rbverde" style="background-color: #3cc926; color:#3cc926; border-radius: 25px; ">color1</label>
@@ -95,6 +78,10 @@
               <div class="col-sm-8">
                   <textarea name="description" id="description" cols="40" rows="4"></textarea>
               </div>
+          </div>
+          <div>
+            <label for="video-link">Link video (embeded) </label>
+            <input type="text" name="video-link" id="video-link" style="width:350px">
           </div>
         </form>
       </div>

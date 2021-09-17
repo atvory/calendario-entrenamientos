@@ -123,7 +123,6 @@ $(function(){
         $("#modalFastEvent input[name='color']").val(Event.color);
         $("#modalFastEvent textarea[name='description']").val(Event.description);
         $("#modalFastEvent select[name='select-tipo']").val(Event.tipo);
-        $("#modalFastEvent select[name='select-nivel']").val(Event.nivel);
         $("#modalFastEvent input[name='video-link']").val(Event.video);
 
     });
@@ -153,14 +152,13 @@ $(function(){
 */
 
     $(".saveFastEvent").click(function () {
-
+        console.log("clic save");
         let id = $("#modalFastEvent input[name='id']").val();
 
         let title = $("#modalFastEvent input[name='title']").val();
         let description = $("#modalFastEvent textarea[name='description']").val();
         let tutor_id = $("#modalFastEvent input[name='tutor_id']").val();
         let tipo = $("#modalFastEvent select[name='select-tipo']").val();
-        let nivel = $("#modalFastEvent select[name='select-nivel']").val();
         let link = $("#modalFastEvent input[name='video-link']").val();
 
         let FastEvent = {
@@ -168,11 +166,10 @@ $(function(){
             act_title: title,
             act_description: description,
             act_tipo:tipo,
-            act_nivel:nivel,
             video:link  
         };
 
-        console.log(FastEvent);
+        //console.log(FastEvent);
 
 
         let route;
@@ -185,7 +182,8 @@ $(function(){
             FastEvent._method = 'PUT';
         }
         
-
+        console.log(route);
+        console.log(FastEvent);
         sendEvent(route,FastEvent); 
     });
 
@@ -246,6 +244,9 @@ $(function(){
         //let color = $("#modalCalendar input[name='color']").val();
         let description = $("#modalCalendar textarea[name='description']").val();
 
+        let tipo = $("#modalCalendar select[name='select-tipo']").val();
+        let link = $("#modalCalendar input[name='video-link']").val();
+
         let Event = {
             tutor_id: tutor_id,
             alumno_id:alumno_id,
@@ -254,6 +255,8 @@ $(function(){
             end: end,
             color: radioValue,
             description: description,
+            tipo:tipo,
+            video:link
         };
 
         //console.log(routeEvents ('routeEventStore'));
@@ -266,7 +269,7 @@ $(function(){
             Event.id = id;
             Event._method = 'PUT';
         }
-        //console.log(Event);
+        console.log(Event);
         sendEvent(route, Event);
     });
 
